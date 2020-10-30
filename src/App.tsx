@@ -1,26 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import Game from "./components/Game";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export interface GameData {
+  maxCount: number,
+  tiles: []
 }
+
+export interface GameDataTile {
+  colorCode: string,
+  colorName: string
+}
+
+const App = () => {
+  const [gameData, setGameData] = useState<GameData>();
+
+  const fetchData = async () => {
+    const data = await fetch("data.json");
+    const dataJson = await data.json();
+    setGameData(dataJson);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (!gameData || !gameData.tiles) return null;
+  return <Game data={gameData} />;
+};
+
+
+// const mapStateToProps = (state /*, ownProps*/) => {
+//   return {
+//     isFinished: state.isFinished,
+//     step: state.step
+//   }
+// }
+
+// const mapDispatchToProps = { fetchData }
+
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(App);
 
 export default App;
