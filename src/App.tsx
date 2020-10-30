@@ -29,19 +29,4 @@ const App = () => {
   return <Game data={gameData} />;
 };
 
-
-// const mapStateToProps = (state /*, ownProps*/) => {
-//   return {
-//     isFinished: state.isFinished,
-//     step: state.step
-//   }
-// }
-
-// const mapDispatchToProps = { fetchData }
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(App);
-
 export default App;
