@@ -7,7 +7,7 @@ interface IProps {
 }
 
 const InfoPanel = (props: IProps) => {
-  const step = useTypedSelectorStep(state => state.step);  
+  const step = useTypedSelectorStep(state => state.step);
   const finished = useTypedSelectorFinished(state => state.finished)
 
   if (finished) {

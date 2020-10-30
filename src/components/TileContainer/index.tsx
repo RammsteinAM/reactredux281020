@@ -10,7 +10,7 @@ interface IProps {
 
 const TileContainer = (props: IProps) => {
   const handleClick = () => {
-      props.onTileClick(props.index);
+    props.onTileClick(props.index);
   };
 
   return (

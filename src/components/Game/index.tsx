@@ -6,9 +6,10 @@ import Tile from "../Tile";
 import TileContainer from "../TileContainer";
 import { GameData, GameDataTile } from "../../App";
 import { useDispatch } from 'react-redux'
-import { setColorBlind, setFinished, setStep } from "../../store/actions";
+import { setFinished, setStep } from "../../store/actions";
 import { useTypedSelector as useTypedSelectorStep } from "../../store/reducers/stepReducer";
 import { useTypedSelector as useTypedSelectorFinished } from "../../store/reducers/finishedReducer";
+import { useTypedSelector as useTypedSelectorDarkMode } from "../../store/reducers/darkModeReducer";
 
 interface IProps {
   data: GameData
@@ -23,6 +24,7 @@ const Game = (props: IProps) => {
   const dispatch = useDispatch();
   const step = useTypedSelectorStep(state => state.step);
   const finished = useTypedSelectorFinished(state => state.finished);
+  const darkMode = useTypedSelectorDarkMode(state => state.darkMode);
 
   useEffect(() => {
     if (props.data && props.data.tiles) setTiles(props.data.tiles);
@@ -96,24 +98,19 @@ const Game = (props: IProps) => {
     dispatch(setFinished(false));
   };
 
-  const toggleColorBlindMode = (value: boolean) => {
-    dispatch(setColorBlind(value))
-  };
-
   const data = tiles && generateRenderData(tiles, maxCount);
-
+  const gameClassName = `game ${darkMode ? "dark-mode" : ""}`;
   return (
-    <div className="game">
+    <div className={gameClassName}>
       <div className="game-panel-container">
         <InfoPanel
           invalidMove={invalidMove}
         />
         <ControlPanel
-          toggleColorBlindMode={toggleColorBlindMode}
           onReset={handleReset}
         />
       </div>
-      {!finished && (
+      <div className="game-container">
         <div
           className="tile-selected-container"
           onClick={handleSelectedTileClick}
@@ -122,17 +119,17 @@ const Game = (props: IProps) => {
             <Tile tileData={selectedTile} />
           )}
         </div>
-      )}
-      <div className="game-container">
-        {data &&
-          data.map((tiles: [], i: number) => (
-            <TileContainer
-              key={i}
-              index={i}
-              tiles={tiles}
-              onTileClick={handleTileClick}
-            />
-          ))}
+        <div className="tiles-container">
+          {data &&
+            data.map((tiles: [], i: number) => (
+              <TileContainer
+                key={i}
+                index={i}
+                tiles={tiles}
+                onTileClick={handleTileClick}
+              />
+            ))}
+        </div>
       </div>
     </div>
   );

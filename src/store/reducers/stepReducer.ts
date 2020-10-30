@@ -9,11 +9,10 @@ interface RootState {
 export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export const step = (state = 0, action: IAction<string, number>) => {
-  debugger
-    switch (action.type) {
-      case SET_STEP:
-        return action.payload;
-      default:
-        return state;
-    }
-  };
+  switch (action.type) {
+    case SET_STEP:
+      return action.payload;
+    default:
+      return state;
+  }
+};
