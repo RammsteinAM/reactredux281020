@@ -16,9 +16,3 @@ export const finished = (state = false, action: IAction<string, boolean>) => {
             return state;
     }
 };
-
-
-// // my-component.tsx
-// import { useTypedSelector } from './reducer.ts'
-
-// const isOn = useTypedSelector(state => state.isOn)

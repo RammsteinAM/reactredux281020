@@ -1,6 +1,5 @@
 import { SET_FINISHED, SET_STEP, SET_COLOR_BLIND } from '../actionTypes';
 
-
 export const setFinished = (finished: boolean) => ({
     type: SET_FINISHED,
     payload: finished
